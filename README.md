@@ -256,6 +256,3 @@ Areas where contributions would be valuable:
 
 MIT — see [LICENSE](LICENSE).
 
-## Credits
-
-Built by [George Papadongonas](https://github.com/geopap) through iterative development across 100+ production sprints. The framework evolved from real needs — every gate, every rule, every agent exists because something went wrong without it.
