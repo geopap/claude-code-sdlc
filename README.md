@@ -258,4 +258,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## Credits
 
-Built by [George Papadakis](https://github.com/geopap) through iterative development across 15+ production sprints. The framework evolved from real needs — every gate, every rule, every agent exists because something went wrong without it.
+Built by [George Papadongonas](https://github.com/geopap) through iterative development across 100+ production sprints. The framework evolved from real needs — every gate, every rule, every agent exists because something went wrong without it.
