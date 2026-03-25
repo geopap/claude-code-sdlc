@@ -6,7 +6,7 @@ A production-tested framework for running a **17-agent software development team
 
 Most people use Claude Code for single-shot tasks. This framework turns it into an **automated development pipeline** where specialized agents handle different concerns — a product manager writes requirements, an architect designs the system, engineers build it, reviewers catch issues, and testers verify quality. All coordinated by a scrum master agent that drives the pipeline forward without manual intervention.
 
-**Built from 15+ production sprints**, not a toy example. Every rule in the pipeline exists because something went wrong without it.
+**Built from 100+ production sprints**, not a toy example. Every rule in the pipeline exists because something went wrong without it.
 
 ## What You Get
 
