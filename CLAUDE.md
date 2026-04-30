@@ -8,6 +8,11 @@
 
 When using git, always use `/usr/bin/git` (system git) instead of Homebrew git to avoid libcurl compatibility issues. If `git push` fails with a curl error, immediately fall back to `/usr/bin/git push` or `gh` CLI without asking.
 
+## Git Safety
+
+- NEVER run `git checkout <file>` or any destructive git command on tracked files with uncommitted changes — this destroyed Sprint 24 progress notes once and is unrecoverable
+- Always check `git status` first and stash or commit before any checkout/reset/clean operation
+
 ## Debugging
 
 When debugging, investigate all potential causes before applying a fix. Don't assume the first issue found is the only one — check for cascading problems (missing env vars, missing seed data, incorrect headers, type mismatches). List ALL potential causes, then propose a fix plan.
@@ -15,6 +20,25 @@ When debugging, investigate all potential causes before applying a fix. Don't as
 ## Sprint Workflow
 
 Never start sprint execution or launch agents until the user explicitly says to proceed. Planning and execution are separate phases — wait for approval between them.
+
+## Sprint Close Checklist
+
+- ALWAYS notify user about pending SQL migrations BEFORE closing a sprint
+- NEVER queue release emails or schedule autonomous wakeups after sprint close without explicit approval
+- NEVER add items to a sprint that is already in progress without flagging it first; default to next sprint candidates
+
+## Pre-Investigation Checks
+
+- Before assuming infrastructure/connectors are missing (GA4, Klaviyo, CSV import, etc.), search the codebase first
+- Before filing a backlog item with a B-number, grep BACKLOG.md to confirm the number isn't already taken
+- Use Claude-cadence timing (not human-week timing) for all sprint estimates
+
+## Migration Authoring
+
+- Verify column names against the actual schema before writing migrations (migration 010, 044, 052 all had column/SQL errors caught only at user execution)
+- Avoid `||` concatenation in `COMMENT ON COLUMN` statements
+- For Supabase: do NOT use ALTER DATABASE or ALTER ROLE (permission denied); use session-level settings or pg_cron drainer patterns
+- Always include profile/data backfill steps BEFORE adding NOT NULL FK constraints
 
 ## General Rules
 
