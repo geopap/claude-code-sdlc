@@ -441,6 +441,14 @@ A sprint item is "ready for build" ONLY when ALL of these are true:
 - All report findings with file/line references — none write code
 - Engineers (R3/R4) fix CRITICAL and HIGH findings before R6
 
+**R5 Diff Pack (mandatory before launch):** Before launching the parallel R5 wave, [scrum-master] extracts the diff hunks for every file touched by the item plus ±20 lines of surrounding context, and embeds the pack in each reviewer's launch prompt. Reviewers consume the pack as canonical; Read access is retained for cases where surrounding architectural context is needed but should be the exception, not the default. This eliminates 4× redundant file reads on every M/L item without weakening review quality.
+
+- **Extraction**: `git diff <last-committed-base>..HEAD -- <files-changed-from-SPRINT.md>` plus ±20 lines context per hunk
+- **Delivery**: inline in each reviewer's prompt; if pack > ~50K tokens, write to `.claude/r5-diffs/<item>.md` and pass the path
+- **New files**: include full file content (diff vs `/dev/null`)
+- **Cross-cutting checks**: when reviewers must verify "no changes elsewhere" (e.g., [security-reviewer] checking auth middleware wasn't bypassed), [scrum-master] pre-runs a grep for the relevant symbols and includes results in the pack
+- **Reviewer instruction**: each reviewer prompt must include — "Use the inlined diff as your canonical view. Only Read additional files if you need surrounding architectural context the diff doesn't provide."
+
 ### Round 6: Testing (Sequential)
 - [test-engineer]: Write e2e (Playwright), integration (API), unit tests
 - Cover: happy path, edge cases, multi-tenant isolation, RBAC, locale-specific scenarios
