@@ -23,6 +23,12 @@
         "hooks": [
           {
             "type": "command",
+            "command": "jq -r '.tool_input.command' | { read -r cmd; if echo \"$cmd\" | grep -qE '(^|[^A-Za-z0-9_/])(git|/usr/bin/git)[[:space:]]+(checkout[[:space:]]+[^-]|reset[[:space:]]+--hard|clean[[:space:]]+-f|restore[[:space:]]+\\.|checkout[[:space:]]+\\.)'; then cd [YOUR_PROJECT_ROOT] && if ! /usr/bin/git diff --quiet || ! /usr/bin/git diff --cached --quiet; then echo '{\"decision\":\"block\",\"reason\":\"BLOCKED: destructive git command on a dirty tree. Run git status, then stash or commit before retrying. (See Git Safety in CLAUDE.md)\"}'; exit 0; fi; fi; }",
+            "timeout": 10,
+            "statusMessage": "Checking git safety..."
+          },
+          {
+            "type": "command",
             "command": "jq -r '.tool_input.command' | { read -r cmd; if echo \"$cmd\" | grep -qE '^(git|/usr/bin/git) commit'; then cd [YOUR_APP_DIR] && [YOUR_TYPECHECK_COMMAND] 2>&1; exit_code=$?; if [ $exit_code -ne 0 ]; then echo '{\"decision\":\"block\",\"reason\":\"Type check failed. Fix errors before committing.\"}'; else echo '{\"decision\":\"allow\",\"reason\":\"Type check passed\"}'; fi; fi; }",
             "timeout": 120,
             "statusMessage": "Running pre-commit type check..."
