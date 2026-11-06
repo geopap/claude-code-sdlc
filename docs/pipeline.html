@@ -1,0 +1,109 @@
+<!doctype html>
+<!-- Source of docs/pipeline.png. Render at 1440×800 (2× device scale) to regenerate. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Claude Code SDLC pipeline</title>
+<style>
+  :root {
+    --bg: #f4f6f9; --surface: #fff; --surface-2: #f0f3f7; --border: #dfe4eb; --text: #17212f; --muted: #5d6b7e;
+    --accent: #163a5f; --accent-soft: #e3eef8; --build: #0f8f7e; --build-soft: #dcf3ef; --review: #6b4bd6; --review-soft: #eee9fc;
+    --human: #b26a00; --human-soft: #fbeed6; --gate: #c0362c; --gate-soft: #f9e0dd;
+    --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1440px; height: 800px; background: var(--bg); color: var(--text); font: 15px/1.4 var(--font); padding: 40px 48px; display: flex; flex-direction: column; gap: 22px; }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--build); }
+  h1 { font-size: 30px; letter-spacing: -.01em; margin-top: 4px; }
+  .lede { color: var(--muted); font-size: 16px; margin-top: 6px; }
+  .main { display: grid; grid-template-columns: 1fr 330px; gap: 22px; flex: 1; min-height: 0; }
+  .rounds { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+  .card .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .card .r { font-weight: 800; font-size: 13px; color: var(--muted); }
+  .card h3 { font-size: 17px; }
+  .mode { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .chip.build { background: var(--build-soft); color: var(--build); }
+  .chip.review { background: var(--review-soft); color: var(--review); }
+  .note { font-size: 13px; color: var(--muted); }
+  .gate-tag { position: absolute; top: -9px; right: 12px; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--gate); color: #fff; }
+  .side { display: flex; flex-direction: column; gap: 14px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .panel h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+  .gates { list-style: none; padding: 0; display: grid; gap: 6px; }
+  .gates li { display: grid; grid-template-columns: 26px 1fr; gap: 8px; font-size: 13.5px; align-items: baseline; }
+  .gates b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--gate-soft); color: var(--gate); font-size: 12px; }
+  .tiers { display: grid; gap: 6px; font-size: 13.5px; }
+  .tiers span { color: var(--muted); }
+  .human { background: var(--human-soft); border: 1px solid #f0d7a8; border-radius: 12px; padding: 14px 18px; display: flex; gap: 18px; align-items: center; }
+  .human strong { color: var(--human); font-size: 15px; white-space: nowrap; }
+  .human .items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .human .items span { background: var(--surface); border: 1px solid #f0d7a8; border-radius: 999px; padding: 4px 12px; font-size: 13.5px; font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 12.5px; color: var(--muted); }
+  .legend .chip { font-size: 11px; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="kicker">Claude Code SDLC · AI-native software delivery</div>
+    <h1>17 specialised agents, 8 rounds, 8 quality gates. People own the decisions.</h1>
+    <p class="lede">The controls of a well-run development organisation, applied to an AI development team. Refined over 100+ production sprints.</p>
+  </header>
+
+  <div class="main">
+    <section class="rounds">
+      <div class="card"><div class="top"><span class="r">R1</span><span class="mode">Parallel</span></div><h3>Definition</h3>
+        <div class="chips"><span class="chip">product-manager</span><span class="chip">data-analyst</span><span class="chip">marketing-manager</span></div>
+        <p class="note">User story, acceptance criteria, KPIs and tracking plan.</p></div>
+      <div class="card"><div class="top"><span class="r">R2</span><span class="mode">Sequential</span></div><h3>Architecture</h3>
+        <div class="chips"><span class="chip">solution-architect</span></div>
+        <p class="note">Schema, API contract, security model and query-performance checks.</p></div>
+      <div class="card"><span class="gate-tag">Definition of Ready</span><div class="top"><span class="r">R3</span><span class="mode">Parallel</span></div><h3>Build: backend &amp; AI</h3>
+        <div class="chips"><span class="chip build">backend-engineer</span><span class="chip build">ai-ml-engineer</span></div>
+        <p class="note">API routes, migrations with rollbacks, access control, AI pipelines.</p></div>
+      <div class="card"><div class="top"><span class="r">R4</span><span class="mode">Sequential</span></div><h3>Build: frontend</h3>
+        <div class="chips"><span class="chip build">frontend-engineer</span></div>
+        <p class="note">Pages and components against the R3 contracts; every state handled.</p></div>
+      <div class="card"><span class="gate-tag">Gate 1</span><div class="top"><span class="r">R5</span><span class="mode">Parallel</span></div><h3>Independent review</h3>
+        <div class="chips"><span class="chip review">code-reviewer</span><span class="chip review">security-reviewer</span><span class="chip review">qa-reviewer</span><span class="chip review">seo-reviewer</span></div>
+        <p class="note">Reviewers never write code. Critical and high findings are fixed first.</p></div>
+      <div class="card"><span class="gate-tag">Gates 2–3</span><div class="top"><span class="r">R6</span><span class="mode">Sequential</span></div><h3>Testing &amp; UAT</h3>
+        <div class="chips"><span class="chip build">test-engineer</span><span class="chip review">tester</span></div>
+        <p class="note">Automated tests and the full regression suite, then UAT pass or fail.</p></div>
+      <div class="card"><span class="gate-tag">Gate 4</span><div class="top"><span class="r">R7</span><span class="mode">Sequential</span></div><h3>Close</h3>
+        <div class="chips"><span class="chip">solution-architect</span></div>
+        <p class="note">Design updated with what was built, deviations, runbooks and rollback plans.</p></div>
+      <div class="card"><span class="gate-tag">Gates 7–8</span><div class="top"><span class="r">R8 + sprint close</span><span class="mode">Release</span></div><h3>Release &amp; learn</h3>
+        <div class="chips"><span class="chip">release-manager</span><span class="chip">technical-writer</span><span class="chip">scrum-master</span></div>
+        <p class="note">Versioned release notes, rollback commands, retrospective.</p></div>
+    </section>
+
+    <aside class="side">
+      <div class="panel"><h4>Quality gates, never skipped</h4>
+        <ul class="gates">
+          <li><b>1</b>All reviewers run on every change</li>
+          <li><b>2</b>Tests and UAT before "done"</li>
+          <li><b>3</b>Every item has a UAT pass</li>
+          <li><b>4</b>Release checklist with rollback plans</li>
+          <li><b>5</b>Backlog, board and sprint in sync</li>
+          <li><b>6</b>Definition of Ready before a sprint</li>
+          <li><b>7</b>Retrospective after every sprint</li>
+          <li><b>8</b>Staging to production promotion checks</li>
+        </ul></div>
+      <div class="panel"><h4>Sized to the work</h4>
+        <div class="tiers">
+          <div><b>Fast Track</b> <span>· XS/S · definition, build, code and security review</span></div>
+          <div><b>Full</b> <span>· M/L · all 8 rounds</span></div>
+          <div><b>Spike-First</b> <span>· XL · architecture spike, then all 8</span></div>
+        </div></div>
+      <div class="legend"><span><span class="chip build">writes code</span></span><span><span class="chip review">reviews or tests</span></span><span><span class="chip">plans or documents</span></span></div>
+    </aside>
+  </div>
+
+  <div class="human"><strong>A person decides</strong>
+    <div class="items"><span>Sprint scope</span><span>UAT sign-off</span><span>Merge to main</span><span>Database migrations</span><span>Release tag</span><span>Anything destructive</span></div>
+  </div>
+</body>
+</html>
