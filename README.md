@@ -2,6 +2,19 @@
 
 A production-tested framework for running a **17-agent software development team** inside [Claude Code](https://claude.ai/code). Covers the full SDLC: requirements, architecture, build, review, testing, and release — orchestrated automatically through an 8-round pipeline with mandatory quality gates.
 
+## For Engineering Leaders
+
+This is an operating model for AI-native software delivery, not just a prompt library. It applies the controls a well-run development organisation already relies on to a team of AI agents, so a lean organisation gets the output of a much larger one without lowering the bar.
+
+| Concern | How the framework handles it |
+|---|---|
+| **Separation of duties** | Agents that write code never approve it. Every change gets independent code, security and QA review before testing. |
+| **Quality gates** | Definition of Ready before build, automated tests and human UAT before done, a release checklist with rollback plans before close. Gates cannot be skipped. |
+| **Release discipline** | Semantic versions, release notes and documented rollback commands. Merges to `main`, tags and database migrations always wait for human approval. |
+| **People stay accountable** | Humans own scope, UAT and every step that touches shared systems. The agents prepare; a person decides. |
+| **Cost control** | Model routing by risk: the most capable model where errors are expensive, a cheaper one for checklist work that is reviewed anyway. |
+| **Continuous improvement** | A retrospective after every sprint. Every rule in the pipeline exists because something went wrong without it. |
+
 ## Why This Exists
 
 Most people use Claude Code for single-shot tasks. This framework turns it into an **automated development pipeline** where specialized agents handle different concerns — a product manager writes requirements, an architect designs the system, engineers build it, reviewers catch issues, and testers verify quality. All coordinated by a scrum master agent that drives the pipeline forward without manual intervention.
