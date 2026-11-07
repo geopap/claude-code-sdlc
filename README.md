@@ -4,7 +4,7 @@ A production-tested framework for running a **17-agent software development team
 
 ![The Claude Code SDLC pipeline: 8 rounds, 8 quality gates, human decisions](docs/pipeline.png)
 
-Part of a five-stage product and AI life cycle: [Product Strategy Cockpit](https://github.com/geopap/product-strategy-cockpit) (strategy) → [AI Use-Case Intake](https://github.com/geopap/ai-use-case-intake) (decide) → **Claude Code SDLC** (build) → [AI Eval Workbench](https://github.com/geopap/ai-eval-workbench) (prove) → [AI Portfolio Office](https://github.com/geopap/ai-portfolio-office) (govern and prove the value).
+Part of a five-stage product and AI life cycle: [Product Strategy Cockpit](https://github.com/geopap/product-strategy-cockpit) (strategy) → [AI Use-Case Intake](https://github.com/geopap/ai-use-case-intake) (decide) → [AI Portfolio Office](https://github.com/geopap/ai-portfolio-office) (fund, govern and prove the value) → **Claude Code SDLC** (build) → [AI Eval Workbench](https://github.com/geopap/ai-eval-workbench) (prove).
 
 ## For Engineering Leaders
 
