@@ -1,0 +1,19 @@
+# Continuous releases: every merge to main updates a release PR with a changelog built
+# from Conventional Commit PR titles. Merging that release PR tags the version and creates the
+# GitHub Release. This replaces v1's [release-manager] and sprint-close sequence.
+name: release
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: "[node | python | simple]"

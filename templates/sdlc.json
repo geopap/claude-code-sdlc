@@ -1,0 +1,42 @@
+{
+  "$comment": "PR-native SDLC config. Read by the sdlc skills, agents and hooks. Keep risk globs in sync with .github/CODEOWNERS and .github/labeler.yml (re-run /sdlc:setup after changing them).",
+  "baseBranch": "main",
+  "commands": {
+    "check": "npm run typecheck && npm run lint && npm test",
+    "test": "npm test",
+    "typecheck": "npm run typecheck",
+    "lint": "npm run lint",
+    "dev": "npm run dev"
+  },
+  "verify": {
+    "url": "http://localhost:3000"
+  },
+  "migrations": {
+    "paths": ["supabase/migrations/**", "migrations/**", "prisma/migrations/**", "alembic/versions/**"]
+  },
+  "risk": {
+    "high": [
+      "**/auth/**",
+      "**/middleware.*",
+      "**/billing/**",
+      "**/payments/**",
+      "**/webhooks/**",
+      "supabase/migrations/**",
+      "migrations/**",
+      "**/*.sql",
+      "**/rls/**",
+      ".github/workflows/**"
+    ],
+    "low": [
+      "**/*.md",
+      "docs/**",
+      "**/*.test.*",
+      "**/*.spec.*",
+      "e2e/**"
+    ]
+  },
+  "compliance": ["GDPR"],
+  "stopHook": {
+    "runCheck": true
+  }
+}

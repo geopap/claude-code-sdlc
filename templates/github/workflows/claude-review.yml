@@ -1,0 +1,47 @@
+# AI review as a required check: runs /sdlc:review (code reviewer plus security reviewer by risk tier,
+# findings verified) on every PR update, posts one summary comment, and fails the check
+# when a confirmed blocking, critical or high finding remains.
+# Needs the ANTHROPIC_API_KEY (or CLAUDE_CODE_OAUTH_TOKEN) repo secret.
+name: claude-review
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          plugin_marketplaces: https://github.com/geopap/claude-code-sdlc.git
+          plugins: sdlc@geopap
+          prompt: |
+            /sdlc:review origin/${{ github.event.pull_request.base.ref }} --post
+
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+            The PR branch is checked out. This is CI: don't ask questions.
+            When finished, write exactly one word, APPROVE or REQUEST_CHANGES, to the file .sdlc-review/verdict
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write,Agent,Task,Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git merge-base:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh issue view:*),mcp__github_inline_comment__create_inline_comment"
+
+      - name: Enforce verdict
+        run: |
+          verdict="$(cat .sdlc-review/verdict 2>/dev/null || echo MISSING)"
+          echo "AI review verdict: $verdict"
+          [ "$verdict" = "APPROVE" ] || { echo "::error::AI review did not approve ($verdict). See the PR comment."; exit 1; }

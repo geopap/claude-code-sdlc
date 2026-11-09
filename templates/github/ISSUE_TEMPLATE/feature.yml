@@ -1,0 +1,30 @@
+name: Feature or change
+description: Something to build. /sdlc:plan turns this into a spec with acceptance criteria and PR slices.
+labels: ["needs-spec"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Who has the problem, and what happens today?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: What should be true when this is done? Rough acceptance criteria are fine.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and context
+      description: Deadlines, dependencies, related issues or PRs, compliance, performance targets.
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: ["P0 — now", "P1 — next", "P2 — soon", "P3 — someday"]
+    validations:
+      required: true
