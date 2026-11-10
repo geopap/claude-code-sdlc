@@ -19,6 +19,24 @@ jobs:
       - run: npm install -g @anthropic-ai/claude-code
       - name: Validate plugin and marketplace
         run: claude plugin validate .
+      # `claude plugin update` only compares versions, so content changes without a
+      # bump never reach installed copies.
+      - name: Version bumped when plugin content changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.base_ref }}
+        run: |
+          git fetch --depth=1 origin "$BASE"
+          if git diff --quiet FETCH_HEAD -- agents skills hooks scripts templates .claude-plugin; then
+            echo "No plugin content changed."; exit 0
+          fi
+          old=$(git show FETCH_HEAD:.claude-plugin/plugin.json | jq -r .version)
+          new=$(jq -r .version .claude-plugin/plugin.json)
+          if [ "$old" = "$new" ]; then
+            echo "::error file=.claude-plugin/plugin.json::Plugin content changed but version is still $new. Bump it so 'claude plugin update' picks the change up."
+            exit 1
+          fi
+          echo "Version $old -> $new"
 
   hooks:
     runs-on: ubuntu-latest

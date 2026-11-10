@@ -1,6 +1,6 @@
 {
   "name": "sdlc",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "A PR-native delivery pipeline for Claude Code: plan an issue, build it on a branch, review and verify it in parallel, and hand a ready pull request to a human. Gates live in hooks and CI, not in prose.",
   "author": {
     "name": "George Papadongonas",
