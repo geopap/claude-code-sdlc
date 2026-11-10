@@ -1,0 +1,13 @@
+{
+  "name": "sdlc",
+  "version": "2.0.0-alpha.1",
+  "description": "A PR-native delivery pipeline for Claude Code: plan an issue, build it on a branch, review and verify it in parallel, and hand a ready pull request to a human. Gates live in hooks and CI, not in prose.",
+  "author": {
+    "name": "George Papadongonas",
+    "url": "https://github.com/geopap"
+  },
+  "homepage": "https://github.com/geopap/claude-code-sdlc",
+  "repository": "https://github.com/geopap/claude-code-sdlc",
+  "license": "MIT",
+  "keywords": ["sdlc", "ci-cd", "pull-requests", "code-review", "subagents", "quality-gates"]
+}

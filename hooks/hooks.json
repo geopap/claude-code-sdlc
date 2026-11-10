@@ -1,0 +1,30 @@
+{
+  "description": "Deterministic guardrails: block destructive git and pushes to the base branch; remind Claude to run checks before it stops with unchecked code changes.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/scripts/guard-git.sh",
+            "timeout": 10,
+            "statusMessage": "Checking git safety..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/scripts/stop-check.sh",
+            "timeout": 600,
+            "statusMessage": "Running project checks..."
+          }
+        ]
+      }
+    ]
+  }
+}

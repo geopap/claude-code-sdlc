@@ -1,0 +1,32 @@
+# CI for the framework itself: plugin manifest validation, shell lint, and hook tests.
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Validate plugin and marketplace
+        run: claude plugin validate .
+
+  hooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck scripts/*.sh tests/*.sh
+      - name: Hook JSON is valid
+        run: jq empty hooks/hooks.json .claude-plugin/*.json templates/sdlc.json
+      - name: Guard tests
+        run: bash tests/guard-git.test.sh
