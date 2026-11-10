@@ -53,17 +53,37 @@ In Claude Code:
 /plugin install sdlc@geopap
 ```
 
-Then, in your project:
+Or from a terminal (also works in the desktop app's Terminal panel):
+
+```bash
+claude plugin marketplace add geopap/claude-code-sdlc
+claude plugin install sdlc@geopap
+```
+
+Restart any open sessions; they don't pick up a new plugin. Then, in your project:
 
 ```
 /sdlc:setup
 ```
+
+### What setup does
 
 `/sdlc:setup` detects your stack and writes `.claude/sdlc.json`, a lean `CLAUDE.md`, the PR and issue templates, `CODEOWNERS`, the labeler config and four workflows. It asks before overwriting anything and commits nothing. You then:
 
 1. Add the `ANTHROPIC_API_KEY` (or `CLAUDE_CODE_OAUTH_TOKEN`) repository secret.
 2. Protect `main`: require PRs, require the `ci`, `claude-review` and `pr-hygiene` checks, require Code Owner review, and block force-pushes.
 3. Optional: turn on preview deployments so `/sdlc:verify` tests the real build.
+
+### Updating
+
+Claude Code keeps a local copy of the marketplace and only checks that copy, so refresh it first, then update the plugin and restart your sessions:
+
+```bash
+claude plugin marketplace update geopap
+claude plugin update sdlc@geopap
+```
+
+If `update` says "already at the latest version" right after a release, you skipped the first command.
 
 ## Skills
 
