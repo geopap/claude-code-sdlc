@@ -8,6 +8,10 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 empty="$(mktemp -d)"
 trap 'rm -rf "$empty"' EXIT
 
+# Backticks are matched literally, not expanded.
+# shellcheck disable=SC2016
+pattern='!`[^`]*`'
+
 pass=0
 fail=0
 while IFS= read -r line; do
@@ -21,7 +25,7 @@ while IFS= read -r line; do
     fail=$((fail + 1))
     printf 'FAIL %s\n  cmd: %s\n  out: %s\n' "${file#"$root"/}" "$cmd" "$(printf '%s\n' "$out" | head -3)"
   fi
-done < <(grep -o '!`[^`]*`' "$root"/skills/*/SKILL.md)
+done < <(grep -o "$pattern" "$root"/skills/*/SKILL.md)
 
 echo "skill context commands: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]
