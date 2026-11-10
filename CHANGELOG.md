@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.0-alpha.2 — 2026-11-10
 
 ### Fixed
 - Skills no longer abort on load in repos that haven't run setup yet. Every `` !`cmd` `` context line now exits 0 (`/sdlc:setup` failed on its first run because `ls` exited non-zero for missing files).
