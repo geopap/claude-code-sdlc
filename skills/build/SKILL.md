@@ -10,8 +10,8 @@ allowed-tools: Bash(git status *) Bash(git branch *) Bash(git log *) Bash(gh iss
 Arguments: `$ARGUMENTS`. The first is the issue number; the optional second is the slice number (default: the first slice that isn't done).
 
 ## Context
-- Branch: !`git branch --show-current`
-- Working tree: !`git status --short | head -20`
+- Branch: !`git branch --show-current 2>/dev/null || echo "(not a git repository)"`
+- Working tree: !`git status --short 2>/dev/null | head -20`
 - Config: !`cat .claude/sdlc.json 2>/dev/null || echo "(missing: run /sdlc:setup first)"`
 
 ## Steps

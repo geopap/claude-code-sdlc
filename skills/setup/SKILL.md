@@ -9,10 +9,10 @@ disable-model-invocation: true
 Templates live in `${CLAUDE_PLUGIN_ROOT}/templates/`.
 
 ## Context
-- Repo root: !`git rev-parse --show-toplevel`
+- Repo root: !`git rev-parse --show-toplevel 2>/dev/null || echo "(not a git repository)"`
 - Remote: !`gh repo view --json nameWithOwner,defaultBranchRef -q '"\(.nameWithOwner) default=\(.defaultBranchRef.name)"' 2>/dev/null || echo "(no GitHub remote)"`
-- Existing setup: !`ls -1 .claude/sdlc.json CLAUDE.md .github/workflows .github/pull_request_template.md .github/CODEOWNERS 2>&1`
-- Package scripts: !`cat package.json 2>/dev/null | jq -r '.scripts // {} | keys | join(", ")' 2>/dev/null || echo "(no package.json)"`
+- Existing setup: !`for f in .claude/sdlc.json CLAUDE.md .github/workflows .github/pull_request_template.md .github/CODEOWNERS; do if [ -e "$f" ]; then echo "present: $f"; else echo "missing: $f"; fi; done`
+- Package scripts: !`if [ -f package.json ]; then jq -r '.scripts // {} | keys | join(", ")' package.json 2>/dev/null || echo "(package.json unreadable)"; else echo "(no package.json)"; fi`
 
 ## Steps
 1. **Detect the stack.** Look at the package manager, test runner, typecheck and lint commands, the dev server and its port, the migrations directory, and the auth, payments and multi-tenant code paths. Read the files. Don't guess.

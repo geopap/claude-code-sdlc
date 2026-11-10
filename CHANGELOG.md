@@ -1,6 +1,12 @@
 # Changelog
 
-## 2.0.0-alpha.1 — unreleased
+## Unreleased
+
+### Fixed
+- Skills no longer abort on load in repos that haven't run setup yet. Every `` !`cmd` `` context line now exits 0 (`/sdlc:setup` failed on its first run because `ls` exited non-zero for missing files).
+- Framework CI runs every skill context command in an empty, non-git directory (`tests/skill-context.test.sh`).
+
+## 2.0.0-alpha.1 — 2026-11-10
 
 v2 rebuilds the framework around the pull request instead of the sprint.
 
