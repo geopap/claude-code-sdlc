@@ -10,8 +10,8 @@ allowed-tools: Bash(git diff *) Bash(git log *) Bash(git merge-base *) Bash(gh p
 Arguments: `$ARGUMENTS`. The base ref defaults to `origin/<baseBranch>` (or `origin/main`). `--post` posts the results on the PR, which is what CI uses.
 
 ## Context
-- Branch: !`git branch --show-current`
-- Diff size: !`git diff --shortstat --merge-base origin/HEAD 2>/dev/null || git diff --shortstat HEAD~1`
+- Branch: !`git branch --show-current 2>/dev/null || echo "(not a git repository)"`
+- Diff size: !`git diff --shortstat --merge-base origin/HEAD 2>/dev/null || git diff --shortstat HEAD~1 2>/dev/null || echo "(no diff base found)"`
 - PR: !`gh pr view --json number,title,labels,url -q '"#\(.number) \(.title) [\([.labels[].name]|join(","))] \(.url)"' 2>/dev/null || echo "(no PR for this branch)"`
 
 ## Steps
